@@ -2,32 +2,22 @@ import os
 import xml.etree.ElementTree as ET
 from xml.etree.ElementTree import tostring
 from operator  import itemgetter
+from bs4 import BeautifulSoup
 
-# Here's some weird documentation:
-# https://www.coder.work/article/1004003
-# Some more
-# https://www.kite.com/python/examples/3506/xml-find-all-children-of-an-xml-element-that-match-a-tag
+with open("small.pwiz.1.1.mzML") as fp:
+    soup = BeautifulSoup(fp, 'lxml-xml')
 
-file_name = 'small.pwiz.1.1.mzML'
-full_file = os.path.abspath(os.path.join(file_name))
+soup = BeautifulSoup("<mzML></mzML>", 'lxml-xml')
+print('what is soup', soup)
+print('soup tag:', soup.tag)
 
-# dom = ET.parse(full_file)
-# tree = ET.parse('small.pwiz.1.1.mzML')
+# TODO: Extract binary data
+# TODO: We'll also need other values such as zlib compression and base 64 decode
+
+# file_name = 'small.pwiz.1.1.mzML'
+# full_file = os.path.abspath(os.path.join(file_name))
+
 #iter = tree.iter('chromatogramList')
-#print(iter[0])
 
+# s=tree1.findall('.//{http://psi.hupo.org/ms/mzml}chromatogramList')
 
-tree1 = ET.parse('small.pwiz.1.1.mzML')
-root1 = tree1.getroot()
-s=tree1.findall('.//{http://psi.hupo.org/ms/mzml}chromatogramList')
-
-print('what is my element', s)
-for item in s:
-    ET.dump(item)
-# TODO: From here we need to grab specific element values and binary data.
-
-
-
-#for stuff in range(len(s)):
-  #   attribs = s[stuff].attrib
-   # print(attribs)
