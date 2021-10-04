@@ -7,6 +7,9 @@ with open('small.pwiz.1.1.mzML', 'r', ) as mzml_file:
   content = mzml_file.read() # Entire file at this point
 
   soup = BeautifulSoup(content, 'lxml') 
-  tags = soup.find('mzML') # For some reason these tags don't seem to work. Do we need to do something extra for mzML?
-  print(tags)
-
+  chromatogram = soup.find_all("chromatogram") # This seems to work for now. Idk why stuff like 'indexedmzML' or 'chromatogramList' dont work
+  
+  for entry in chromatogram:
+    print('test')
+  mzml_file.close
+    
